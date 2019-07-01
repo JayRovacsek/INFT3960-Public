@@ -1,5 +1,5 @@
-# INFT3960-Public
-A public copy of our INFT3960 Solution
+# INFT3970-Public
+A public copy of our INFT3970 Solution (University of Newcastle)
 
 # Credits
 Credits to the team:
