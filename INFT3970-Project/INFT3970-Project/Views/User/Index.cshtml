@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "~/Views/Shared/_AuthenticatedLayout.cshtml";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">Account Management Options:</div>
+    <div class="panel-body">
+  
+        @Html.ActionLink("Update Password", "UpdatePassword", "User", null, new { @class = "btn btn-default" })
+
+        @Html.ActionLink("Update Personal Details", "UpdateDetails", "User", null, new { @class = "btn btn-default" })
+
+</div>
+</div>
+<br />
+<h2> @ViewData["Message"] </h2>

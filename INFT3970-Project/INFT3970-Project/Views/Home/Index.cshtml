@@ -1,0 +1,34 @@
+﻿@model IEnumerable<INFT3970Project.Models.CurrentTempModel>
+
+
+@{
+    Layout = "~/Views/Shared/_AuthenticatedLayout.cshtml";
+}
+
+<h2>Current Temperature and Humidity</h2>
+<table class="table table-striped">
+    <tr>
+        <th>Room</th>
+        <th> Temperature</th>
+        <th>Humidity</th>
+        <th>Most Recent Movement</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.RoomName
+            </td>
+            <td>
+                @item.Temperature &deg;C
+            </td>
+            <td>
+                @item.Humidity %
+            </td>
+            <td>
+                @item.MostRecentMovement
+            </td>
+        </tr>
+    }
+</table>

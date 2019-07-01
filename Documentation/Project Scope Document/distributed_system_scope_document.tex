@@ -1,0 +1,698 @@
+\documentclass{article}
+    \usepackage{url}
+    \usepackage{cite}    
+    \usepackage{xcolor}
+    \usepackage{lscape}
+    \usepackage{amssymb}
+    \usepackage{titling}
+    \usepackage{pdfpages}
+    \usepackage{enumitem}
+    \usepackage{graphicx}
+    \usepackage{hyperref}
+    \usepackage{listings}
+    \usepackage{fancybox}
+    \usepackage{enumerate}
+    \usepackage{pdflscape}
+    \usepackage{afterpage}
+    \usepackage{lstautogobble}
+    \usepackage[margin=0.8in]{geometry}
+    \usepackage[nottoc,notlot,notlof]{tocbibind}
+    \renewcommand\maketitlehookd{\vfill\null}
+    \renewcommand\maketitlehooka{\null\mbox{}\vfill}
+
+    \newcommand\arduinobackgroundimage{
+        \put(-5,0){
+        \parbox[b][\paperheight]{\paperwidth}{
+        \vfill
+        \centering
+        \includegraphics[height=\paperheight]{Images/Arduino.jpg}
+        \vfill
+    }}}
+
+    \newcommand\usbdocumentbackgroundimage{
+        \put(-5,0){
+        \parbox[b][\paperheight]{\paperwidth+5px}{
+        \vfill
+        \centering
+        \includegraphics[width=\paperwidth]{Images/USB.jpg}
+        \vfill
+    }}}
+
+    \newcommand\dronebackgroundimage{
+        \put(-5,0){
+        \parbox[b][\paperheight]{\paperwidth+5px}{
+        \vfill
+        \centering
+        \includegraphics[width=\paperwidth]{Images/Drone.jpg}
+        \vfill
+    }}}
+
+    \newcommand\whitebackgroundimage{
+        \put(-5,0){
+        \parbox[b][\paperheight]{\paperwidth}{
+        \vfill
+        \centering
+        \includegraphics[height=\paperheight]{Images/Gradient.jpg}
+        \vfill
+    }}}
+
+    \newcommand\boardbackgroundimage{
+        \put(-5,0){
+        \parbox[b][\paperheight]{\paperwidth}{
+        \vfill
+        \centering
+        \includegraphics[height=\paperheight]{Images/Board.jpg}
+        \vfill
+    }}}
+
+    \newcommand\leadbackgroundimage{
+        \put(-5,0){
+        \parbox[b][\paperheight]{\paperwidth+5px}{
+        \vfill
+        \centering
+        \includegraphics[height=\paperheight]{Images/Leads.jpg}
+        \vfill
+    }}}
+
+    \newcommand\nesbackgroundimage{
+        \put(-5,0){
+        \parbox[b][\paperheight]{\paperwidth+5px}{
+        \vfill
+        \centering
+        \includegraphics[height=\paperheight]{Images/NES.jpg}
+        \vfill
+    }}}
+
+    \newcommand\makerbackgroundimage{
+        \put(-5,0){
+        \parbox[b][\paperheight]{\paperwidth}{
+        \vfill
+        \centering
+        \includegraphics[height=\paperheight]{Images/Maker.jpg}
+        \vfill
+    }}}
+
+    \newcommand\unobackgroundimage{
+        \put(-5,0){
+        \parbox[b][\paperheight]{\paperwidth}{
+        \vfill
+        \centering
+        \includegraphics[height=\paperheight]{Images/Uno.jpg}
+        \vfill
+    }}}
+
+    \newcounter{num}
+
+    \graphicspath{ {Images/} }
+
+    \title{INFT3970 Major Project Scope Document \protect\\
+    Distributed Monitoring System using Embedded Devices}
+    \author{
+        Team Encore\\
+        \textit{Thursday 10:00AM - 10:30AM}\\
+        Jay Rovacsek
+        \texttt{c3146220@uon.edu.au}\\
+        Dean Morton
+        \texttt{c3252227@uon.edu.au}\\
+        Josh Brown
+        \texttt{c3283797@uon.edu.au}\\
+        Jacob Litherland
+        \texttt{c3263482@uon.edu.au}\\
+        Lee Marron
+        \texttt{c3263482@uon.edu.au}\\
+        Edward Lonsdale
+        \texttt{c3252144@uon.edu.au}
+    }
+    \date{\today}
+    \hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=blue,
+    citecolor=red,
+    linktoc=section,
+    }
+    \pagenumbering{arabic}
+
+    \newlist{legal}{enumerate}{10}
+    \setlist[legal]{label*=\arabic*.}
+
+    \begin{document}
+
+    \AddToShipoutPicture{\arduinobackgroundimage}
+
+    \begin{titlingpage}
+        \maketitle
+    \end{titlingpage}
+
+    \AddToShipoutPicture{\usbdocumentbackgroundimage}
+
+    \tableofcontents
+    
+    \newpage
+
+    \AddToShipoutPicture{\unobackgroundimage}
+
+    \section{Executive Summary}
+        \subsection{Background}
+            As technology is integrated further into society, a knowledge of sensor technology will be 
+            seminal for the IT professional. Computation devices are becoming extensions of our senses and 
+            in this vein becoming indispensable. Starting in the health services industry black box solutions 
+            have run medical devices for over a decade. In the contemporary setting we can observe mining trucks 
+            that are driverless, driverless car incubation projects and robots that perform operations 
+            like the davinci\cite{ForbesBernardmarr}\cite{ForbesAndrewwarnold}.
+            \vspace{5mm}
+            One thing these devices all have in common is the extensive use of sensor technology. 
+            Furthermore, these sensors are extending our sense-making ability into areas that the 
+            human race has never experienced before, infrared and ultraviolet sensors in remote 
+            controls give us the ability to control devices without physical intervention. Phones 
+            with accelerometers can be combined with a gyroscopes for games and movement tracking. 
+            Barometric sensors are implemented to measure atmospheric pressure and forecast short 
+            term changes in the weather. Sensors can now measure heart rate and health telemetry 
+            which will be a trillion dollar industry in the future. Even simple sensors such as 
+            temperature, humidity, motion can be employed to create analytics for the home. 
+            \vspace{5mm}
+            Riding the wave of "IoT Revolution" \cite{Forbes}, this project will develop
+            a low cost, easily deployable IoT product in any setting.
+            \\
+            IoT or \textit{The Internet of Things} has proven to be an explosive trend within
+            the consumer electronics markets. Never before have such small versatile devices been
+            available for general consumption, leading to an estimated combined business and
+            consumer spending value in excess of \$6 \textit{trillion} dollars globally in 2018\cite{Forbes}.
+            \par\noindent
+            For the vast majority of consumers, both corporate and end-customer \cite{Mckinsey}, a large 
+            movement toward both minimisation of waste and optimisation of spending is occuring
+            on a global scale in the developed world, with the developing world rapidly following 
+            this trend also\cite{SunNews}.
+            \\
+            Citing this movement, it would only be logical to create a simple to use set of devices 
+            that allow for the monitoring of such measurables.
+        \vspace{5mm}
+        \subsection{Overview and Purpose}
+            The concept of this project is to create a distributed system in which small 
+            devices are used to monitor, log and analyse a number of select metrics from a 
+            multitude of potential data points.
+            \par\noindent
+            The purpose of the project is to deliver a viable product that could be replicated
+            for a reasonable price for both end-user and business alike. We believe the market to
+            be on a precipice of further explosive growth, with the consumer market partially
+            realised, but far from tapped by curent offerings.
+            \par\noindent
+            \subsubsection{Metrics}
+                The metrics measured included will be: 
+                \begin{itemize}
+                    \item Temperature
+                    \item Humidity
+                    \item Motion
+                \end{itemize}
+                We anticipate further development on the project to be viable post submission date,
+                however realise the limitations of the current timeframe.
+                \par
+                Metrics measured would be viewable on a users dashboard, with data being able to be
+                scoped to multiple filter requirements such as time, select edge cases or specific 
+                locations.
+                \\
+                The end-goal being an ability for users to better determine inefficient or bad decisions
+                they may make unwittingly in regards to home or business heating, coupled with the 
+                impact of room utilisation.
+
+    \newpage
+    \AddToShipoutPicture{\nesbackgroundimage}
+
+    \section{Business Needs/Problems}
+        As suggested in the executive summary and project background, the IoT market is expected 
+        to rapidly grow in not only the current year but a number of future years to come. 
+        Accessibility and ease of use being major factors spurring the market into the current 
+        state.
+        \\
+        This project aims to fill some of the gaps that exist within the expanding world of IoT
+        by allowing end users irrespective of technological capability to easily partake in the 
+        current market at a price position that doesn't reflect excessive or overly expensive 
+        alternatives that exist.
+        \\
+        As individuals within the project, we recognise the hurdles that would need to be jumped
+        in order to prove this potentially to be a business viable product, so instead we elect
+        to suggest that this project instead could allow a level of federation for the maker-space
+        and allow the product instead to be documented for open-sourcing into the future potentially
+        or to accept donations as a labour of love.
+
+        \subsection{Azure Hosting}
+            Currently without extenuating circumstances against hosting within the cloud the
+            decision to host in Azure applications seems to be the path of least resistance for
+            the project in order to enable a globalised access to a single database to host 
+            data.
+            \\
+            We recognise the flaws with hosting in the cloud also, such as data breach potential 
+            (traditional methods or emerging threats\cite{SpectreAndMeltdown}), however also
+            recognise with a limited span of time allowable for the project a more suitable 
+            system design such as below is not suitable in the timeframe:
+            \vspace{10mm}
+            \begin{center}
+                \includegraphics[width=270pt]{Images/OptimalSystemDiagram.jpg}
+            \end{center}
+            Such a design would allow for users to maintain connectivity from their 
+            own LAN:
+            \begin{center}
+                \includegraphics[width=270pt]{Images/OptimalSystemDiagramAlternate.jpg}
+            \end{center}
+
+            \newpage
+
+            \AddToShipoutPicture{\whitebackgroundimage}
+
+            Given time constraints we need to accept that the design of centralised 
+            servers hosted within Azure achieves the same ability to serve the user information and maintain connectivity as required, but is more failable:
+
+            \begin{center}
+                \includegraphics[width=270pt]{Images/CurrentSystemDiagram.jpg}
+            \end{center}
+            In a network failure situation:
+            \begin{center}
+                \includegraphics[width=270pt]{Images/CurrentSystemDiagramAlternate.jpg}
+            \end{center}
+
+            Optimally the scope of the project would be expanded to development of
+            the user hosted microservers that would act as middleware between
+            the hosted servers and the sensors, this is a highly viable goal given
+            technologies such as the RaspberryPi\cite{RPI} which under \$50AUD 
+            can a number of Linux distributions or Windows IoT Core platform however
+            time will likely limit ability for us to consider this route, and therefore
+            we have decided against including the concept in this project.
+        
+        \subsection{Wi-Fi vs Zigbee}
+            Considerations to implement the network of devices was considered however 
+            given the requirement to purchase and implement a module
+            to enable use of Zigbee, conventional WEP/WPA/WPA2 network options 
+            were perfered. Both conventional Wi-Fi networks and Zigbee would allow
+            meshability between devices, however Zigbee would prove less of an impact on the user's
+            network in the form of mixture of DHCP leases and wireless network congestion avoided.
+
+        \subsection{Privacy Issues}
+        We recognise the collection of such personal data not only increases the attack surface for 
+        privacy conscious individuals, but erodes privacy barriers that should be upheld. GDPR\cite{GDPR} compliance
+        will be attempted to be upheld in this project, breach notification, right to access, 
+        right to be forgotten and data portability (in the form of a user being able to download their
+        own data) will be offered where possible.
+        Furthermore to avoid various attacks against privacy such as Record linkage, attribute linkage or
+        table linkage (less severe in this case) data that is related to multiple parties will be 
+        anonymised where possible and not a hinderance to the project's scoped objectives.\cite{PrivacyAttacks}
+
+    \newpage
+    \AddToShipoutPicture{\leadbackgroundimage}
+
+    \section{Project Objectives}
+        Within the timeframe still available to this project, we aim to develop and deploy a number of 
+        IoT devices\cite{ESP8266} to a home enviroment or two and to track heat, humidity and motion of the
+        dwelling to better understand the potential correlations of room use, heating and potential 
+        inefficiencies created in areas such as 'High Traffic' spots (loungerooms and hallways).
+        Optimally we aim to couple this with a mapping of the dwelling, allowing a more intuitive expression 
+        of the data collected.
+        \par
+        We intend on using student subscriptions to leverage Azure for both website hosting and databasing 
+        coupled with a small budget of roughly \$100-\$200 to purchase all required equipment which currently
+        is expected to be:
+        \begin{itemize}
+            \item Arduino UNO3 Microcontroller\cite{UNO3}
+            \item ESP8266 boards\cite{ESP8266}
+            \item DHT11 Temperature and Humidity sensors\cite{DHT11}
+            \item XC-4444 PIR Motion sensors\cite{XC-4444}
+            \item Various required breadboards / generic electronics items
+        \end{itemize}
+
+        The overall goals of the project is to enhance our knowledge of IOT sensor 
+        technology in the scope of exploratoring what this technology 
+        can achieve and expanding the paradigm of this technologies implementations. 
+        \par
+        Secondarily the group seeks to develop our ability to interface with middleware 
+        using a number of appropriate languages to create a frontend user interface 
+        for users to monitor/operate and perform data analytics on the system and a 
+        backend for data management system that interfaces with an SQL server implementation. 
+        
+        \newpage
+        \AddToShipoutPicture{\dronebackgroundimage}
+
+        \section{Deliverables}
+            The deliverables that are expected to be produced throughout the distributed monitoring system are broken into Four sections; Sensors, Database, UI and 
+            analytics.
+            \subsection{Sensors}
+            \begin{itemize}
+                \item Sensors are created to read temperature.
+                \item Sensors are created to read humidity.
+                \item Sensors are created to read motion.
+                \item Sensors can be reprogrammed with different modules (Or have all modules avilable).
+                \item Sensor ownership can be modified.
+                \item Sensors cav connect to any 2.4gHz home network.
+            \end{itemize}
+
+            \subsection{Database}
+            \begin{itemize}
+                \item A new user account can be created.
+                \item A new sensor can be registered.
+                \item A newly registered sensor can create data on first boot.
+                \item An admin can access user’s information (password hashed + salted).
+                \item A user record can be edited.
+                \item A sensor can be assigned to a user account.
+                \item A sensor can be deleted from a user’s account.
+                \item A sensor’s details can be edited.
+                \item An admin can view raw data from all tables (Depersonalised data).
+                \item An admin can edit data from tables.
+                \item Password can be changed.
+                \item Email will be sent for resetting a forgotten password.
+                \item Email verification upon account creation.
+                \item Procedures and triggers for data analysis and querying.
+            \end{itemize}
+            A full prototype EER diagram can be found in the \hyperref[sec:Appendix]{Appendix}
+
+            \newpage
+
+            \subsection{User Interface}
+            \begin{itemize}
+                \item Login page for users.
+                \item Registration page for users.
+                \item Home page (Displaying an overview).
+                \item Tabbed pages for: 
+                    \begin{itemize}
+                        \item Temperature page.
+                        \item Humidity page.
+                        \item Motion page.
+                    \end{itemize}
+                \item User able to access associated data.
+                \item Graphs based on the user data.
+                \item User able to customise graphs and home page layout.
+                \item Custom Analytic results.
+                \item Email Suggestions section.
+                \item Password reset section.
+                \item Logout Page.
+            \end{itemize}
+
+            \newpage
+
+            \AddToShipoutPicture{\whitebackgroundimage}
+
+            \subsection{Data Analytics}
+            \begin{itemize}
+                \item Administration able to view user data that has been depersonalised.
+                \item Display Recommendations to the user based on trends.
+                \item Showing different trends around a user’s home using the different modules.
+                \item Visibility of outlier data.
+                \item Make recommendations on when to use heating or cooling in rooms.
+                \item Determine if applicances may have been left on or utilised when not required
+                      and prompt user.
+                \item Meta-Analytics including:
+                \begin{itemize}
+                    \item Average temperature/humidity.
+                    \item Average events for motion sensors.
+                    \item Determine localised trends
+                \end{itemize}
+                \item Determine expected trends and flag or notify of extreme outliers.
+            \end{itemize}
+            \noindent
+            Having a Data Analytics major within our group we expect the data collected may contain interesting information. \\
+            An analytic module will be used to parse data for each user and display recommendations and habits from the data.
+            
+            \subsubsection{Temperature Module}
+                The analytic module will be able to tell the users how different the temperature is around their house and see trends on room temperatures. This will also be able to be used to give recommendations on what rooms need heating/cooling and what rooms do not benefit from heating or cooling.
+            \subsubsection{Humidity Module}
+                The analytic module will be able search through the data and view what rooms and areas of the house are the most humid. This allows the user to keep an eye on the moisture that is in their homes like a wardrobe or kitchen pantry. Another use for the humidity module is alongside the temperature module to give suggestions to the user if they should turn on/off Air-conditioning units.
+            \subsubsection{Motion Module}
+                The analytic module will be able to see trends and habits on behaviour as they move through their home. By using this information the user will be able to see what rooms are high traffic areas and at what times of the day this high concentration of movement occurs. Through this it can also be used to tell when outliers occur for security purposes. Such as late night movement in a shed could be an intruder and the user will be notified with this uncommon event.
+
+            \newpage
+
+        \subsection{Milestones}
+        A number of highly important milestones have been already scheduled as below;
+
+        \begin{center}
+            \includegraphics[width=300px]{Images/Milestones.jpg}
+        \end{center}
+        An extended list of milestones on expected completion times for tasks is included in the proceeding pages.
+        \\
+        For a full gantt chart, please refer to the \hyperref[sec:Appendix]{Appendix}
+        \begin{landscape}
+            \begin{center}
+                \includegraphics[
+                    width=\paperheight-116pt,
+                    keepaspectratio,
+                    page=1]
+                {Resources/ProjectTasks.pdf}
+                \includegraphics[
+                    width=\paperheight-116pt,
+                    keepaspectratio,
+                    page=2]
+                {Resources/ProjectTasks.pdf}
+            \end{center}
+        \end{landscape}
+        \newpage
+        \AddToShipoutPicture{\makerbackgroundimage}
+
+    \section{Key Roles in Project}
+        Key roles defined for the project include the below:
+        \vspace{10mm}
+        \begin{center}
+            \includegraphics[width=\textwidth-70pt]{Images/KeyRoles.jpg}
+        \end{center}
+    \newpage
+
+    \AddToShipoutPicture{\boardbackgroundimage}
+
+    
+    \section{Technical Requirements}
+        \subsection{Generalised Requirements}
+            The team collaboratively have agreed on a few generalised requirements of the project
+            including:
+            \begin{itemize}
+                \item Ease of use: The devices must be able to used by a nontechnical user, they must
+                be supplied in such a way that an ability to place the device in place, and connect power
+                are the largest difficulties that the end user encounters.
+                \item Abstraction of underlying technologies: as a byproduct of the requirement of ease-of-use
+                the devices and web application should not require the end user to have any knowledge of the 
+                underlying technolgies used.
+            \end{itemize}
+        \subsection{Data Requirements}
+            Requirements for raw data be stored in an online database are only access
+            for the development resources to be able to access any suitable cloud account, 
+            self-host on a local machine or debug required functions in the application with 
+            localised data generation via ajax\cite{AJAX} queries of similar methods.
+            
+            \subsubsection{Azure}
+                Azure is a likely candidate for the Database and website hosting, The database will be used to store 
+                all the data that is sent from the sensors. The uptime of the database the web application is vital 
+                to the user experience and the success of the project. Azure provides this security 
+                with 99.95\% uptime \cite{AzureUptime}.
+
+        \subsection{Hosting Enviroment}
+            Pages for the site itself will require a suitable host either cloud or local which
+            supports .NETcore 2.0\cite{DotNetCore2} and suitable network access to reach a
+            required TSQL\cite{TSQL} database hosted by the team.
+        
+        \subsection{Network Connectivity}
+            Functioning network connectivity will be heavily depended on by the project,
+            all of the sensors will be connected to a local network wirelessly which will enable the boards
+            to post data at the API endpoint at either \url{https://www.inft3970.com} (Parked domain) or 
+            \url{https://inft3970.azurewebsites.net} (Currently functioning endpoint)
+            \par
+            Requirements for the user to maintain a 2.4gHz enviroment will exist, as without this an expansion board
+            or alternate boards will be required instead of the proposed ESP8266\cite{ESP8266} and UNO3\cite{UNO3}.
+        
+        \subsection{User Requirements}
+            The users of the system will need to be confident in browsing webpages and accessing them. Generally
+            we recognise any device with browser functionality will suit the purpose, and development will use a 
+            mixture of Firefox\cite{Firefox} or Chromium\cite{Chromium} based browsers to find all possible bugs 
+            within the project span.
+            \\
+            The lack of an adblocker or similar addons for the chosen browsing enviroment would be suggested also,
+            third party javascript libraries are likely to be used and cannot be assured to function under such 
+            enviroments including modification or blocking of traffic/assets.
+        
+        \subsection{Development Requirements\cite{DevelopmentResources}}
+            A number of softwares will be required by the development team in order to complete the project,
+            these softwares may include:
+            \begin{itemize}
+                \item SQL management studio to manage the database. Azure is using TSQL which can be managed by SQL management studio 
+                on the developers local machine.
+                \item Visual studio to develop the front and back-ends of the web application. 
+                \item Visual Studio Code to develop elements of the front-end
+                \item Arduino IDE software for editing/flashing the boards in C/C++.
+            \end{itemize}
+
+        \newpage
+
+    \section{Limitations}
+        It is important to acknowledge the limitations of this project, given that this project is taking place 
+        in a compressed format it will primarily be an exploratory exercise in IOT sensor technology and its 
+        ability to interface with middleware, frontend/backend and an SQL server implementation.
+        In order to managing expectations we are primary focused on heat,humidity and motion, this proof of 
+        concept implementation reduces the risk of under delivering on expectations.
+        
+        \subsection{Device Limitations}
+            The ESP8266 is limited to the 2.4gHz wireless spectrum, and therefore a number of modern wireless
+            networks may prove incompatible with the device. This is only a small hinderence to the device as
+            most modern networks will use both 2.4 and 5.1gHz spectrums. Furthermore the 2.4gHz spectrum is 
+            better suited to longer distance connections than the 5.1gHz range, and even in the most
+            heavily congested of wireless areas it would be reasonable to expect the payload from the ESP would
+            have no issues at a measly 200bytes on average.
+            
+            \subsubsection{Security Concerns}
+            Issues related to security on the publicly open API endpoints hosted in Azure prove to be hindered
+            by the limitations of the devices. We are currently investigating potential fixes for the current
+            implementation in which requests over https connections should ensure a level of security over 
+            current use of plain http.
+            \\
+            Implementation of a method that would allow access to a preflashed public key to be used for encryption
+            purposes of sensitive json data before it even leaves the device would be an excellent addition to 
+            the project, however both scope and inefficiencies of pub/private key encryption are reasons against
+            this idea.
+        
+        \subsection{Development Limitations}
+            Limitations of development experience may exist within the group with only 2 software engineering majors
+            present. We expect that these members will be able to assist the other members in potential problem 
+            areas and expect the use of code versioning will alleviate any potential miscommunications in code 
+            modification and submission.
+            \\
+            Factors potentially negating this issue include a base level of programming knowledge being shared across
+            all members of the team, with a heavy level of experience in C\# programming.
+
+            \subsubsection{Framework Limitations}
+                We may experience some level of difficulties with the chosen framework of .NETCore 2.0 in development
+                as only a limited number of the team have experienced .NETCore MVC application programming or 
+                .NETCore API programming. 
+                \\
+                We expect however the time required for upskilling and learning the framework will provide a positive
+                time return if not purely allowing team members a new skill in which to take to potential employment 
+                opportunities into the future.
+        
+        \newpage
+
+    \begin{thebibliography}{9}
+        \raggedright
+        \bibitem{Forbes}
+            Forbes article: Top 8 IoT trends of 2018:
+            \url{https://www.forbes.com/sites/danielnewman/2017/12/19/the-top-8-iot-trends-for-2018/}
+        \bibitem{Mckinsey}
+            Mckinsey article: Value of digitizing the physical world:
+            \url{https://www.mckinsey.com/business-functions/digital-mckinsey/our-insights/the-internet-of-things-the-value-of-digitizing-the-physical-world}
+        \bibitem{SunNews}
+            Sun News article: China; Largest Renewables Producer:
+            \url{http://sunnewsonline.com/china-is-worlds-largest-renewable-energy-producer-consumer/}
+        \bibitem{ESP8266}
+            ESP8266 Information Page:
+            \url{http://esp8266.net/}
+        \bibitem{XC-4444}
+            Jaycar XC-4444 Datasheet:
+            \url{https://www.jaycar.com.au/medias/sys_master/images/9105858396190/XC4444-dataSheetMain.pdf}
+        \bibitem{DHT11}
+            Jaycar Resources; DHT11 Datasheet:
+            \url{https://www.jaycar.com.au/medias/sys_master/images/9091897786398/XC4520-dataSheetMain.zip}
+        \bibitem{DotNetCore2}
+            .NETCore SDK Download Page:
+            \url{https://www.microsoft.com/net/download}
+        \bibitem{TSQL}
+            TSQL Server Download Page:
+            \url{https://docs.microsoft.com/en-us/sql/t-sql/language-reference?view=sql-server-2017}
+        \bibitem{AzureUptime}
+            Azure Uptime SLA:
+            \url{https://azure.microsoft.com/en-au/support/legal/sla/app-service/v1_4/}
+        \bibitem{UNO3}
+            Arduino UNO3 Store Page:
+            \url{https://store.arduino.cc/usa/arduino-uno-rev3/}
+        \bibitem{Firefox}
+            Firefox:
+            \url{https://www.mozilla.org/en-US/firefox/}
+        \bibitem{Chromium}
+            Chromium:
+            \url{https://www.chromium.org/}
+        \bibitem{RPI}
+            RaspberryPi Organisation Page:
+            \url{https://www.raspberrypi.org/}
+        \bibitem{OPI}
+            OrangePi Website:
+            \url{http://www.orangepi.org/}
+        \bibitem{SpectreAndMeltdown}
+            Spectre and Meltdown explaination page:
+            \url{https://meltdownattack.com/}
+        \bibitem{Unsplash}
+            Unsplash Website:
+            \url{https://unsplash.com}
+        \bibitem{AJAX}
+            jQuery API calls with AJAX
+            \url{https://api.jquery.com/jQuery.ajax/}
+        \bibitem{PrivacyAttacks}
+            Prof Ljiljana Brankovic, University Of Newcastle \textit{COMP3260} Data Security
+        
+        \newpage
+
+        \bibitem{ForbesBernardmarr}
+            \url{https://www.forbes.com/sites/bernardmarr/2017/11/06/the-future-of-the-transport-industry-iot-big-data-ai-and-autonomous-vehicles/#403857061137}
+        \bibitem{ForbesAndrewwarnold}
+            \url{https://www.forbes.com/sites/danielnewman/2017/12/19/the-top-8-iot-trends-for-2018/}
+        \bibitem{GDPR}
+            Information page: GDPR
+            \url{https://www.eugdpr.org}
+        \bibitem{DevelopmentResources}
+            Development resources:
+            \begin{center}
+                \includegraphics[width=400px]{Images/DevelopmentResources.jpg}
+            \end{center}
+    \end{thebibliography}
+    All image backgrounds are images from Unsplash, a provider of free and openly licensed images\cite{Unsplash}
+    \vspace{5mm}
+    All code hosted both locally and an origin repository maintained in Github:
+    \begin{itemize}
+        \item Web Application code: \url{https://github.com/JayRovacsek/INFT3970}
+        \item Database code: \url{https://github.com/JayRovacsek/INFT3970-DB}
+        \item Sensor code: \url{https://github.com/JayRovacsek/INFT3970-Sensors}
+    \end{itemize}
+    Access to the private repositories can be organised, at the completion of the course if no members
+    object we will move the repositories to an open status.
+
+    \begin{landscape}
+        \section{Appendix}
+        \label{sec:Appendix}
+        \begin{center}
+            \includegraphics[
+                width=\paperheight-140pt,
+                keepaspectratio,
+                page=1]
+            {Images/EERDiagram.jpg}
+            \newpage
+            \includegraphics[
+                width=\paperheight-140pt,
+                keepaspectratio,
+                page=1]
+            {Resources/Gantt.pdf}
+            \newpage
+            \includegraphics[
+                width=\paperheight-116pt,
+                keepaspectratio,
+                page=2]
+            {Resources/Gantt.pdf}
+            \newpage
+            \includegraphics[
+                width=\paperheight-116pt,
+                keepaspectratio,
+                page=3]
+            {Resources/Gantt.pdf}
+            \newpage
+            \includegraphics[
+                width=\paperheight-116pt,
+                keepaspectratio,
+                page=4]
+            {Resources/Gantt.pdf}
+            \newpage
+            \includegraphics[
+                width=\paperheight-116pt,
+                keepaspectratio,
+                page=5]
+            {Resources/Gantt.pdf}
+            \newpage
+            \includegraphics[
+                width=\paperheight-116pt,
+                keepaspectratio,
+                page=6]
+            {Resources/Gantt.pdf}
+            \newpage
+        \end{center}
+    \end{landscape}
+
+
+    \end{document}

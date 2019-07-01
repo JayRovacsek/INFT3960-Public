@@ -1,0 +1,33 @@
+﻿@model IEnumerable<INFT3970Project.Models.LogModel>
+@{
+    Layout = "~/Views/Shared/_AuthenticatedLayout.cshtml";
+}
+
+<h2>Logs</h2>
+<table class="table table-striped">
+    <tr>
+        <th>Log ID</th>
+        <th>Message</th>
+        <th> Severity</th>
+        <th>Time</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        <tr class="@(@item.Severity.Equals("Warning") ? "warning" : @item.Severity.Equals("Fatal") ? "danger" : "default")">
+            <td>
+                @item.Id
+            </td>
+            <td>
+                @item.Message
+            </td>
+            <td>
+                @item.Severity
+            </td>
+            <td>
+                @item.Time
+            </td>
+        </tr>
+    }
+</table>

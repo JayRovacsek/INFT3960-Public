@@ -1,0 +1,190 @@
+\documentclass{article}
+    \usepackage{url}
+    \usepackage[margin=1.0in]{geometry}
+    \usepackage{cite}
+    \usepackage{amssymb}
+    \usepackage{enumerate}
+    \usepackage{enumitem}
+    \usepackage{graphicx}
+    \usepackage{xcolor}
+    \usepackage{pdfpages}
+    \usepackage{hyperref}
+    \usepackage{listings}
+    \usepackage{fancybox}
+    \usepackage{lstautogobble}
+    \usepackage{titling}
+    \usepackage{pdflscape}
+    \usepackage[nottoc,notlot,notlof]{tocbibind}
+    \renewcommand\maketitlehooka{\null\mbox{}\vfill}
+    \renewcommand\maketitlehookd{\vfill\null}
+
+    \graphicspath{ {Resources/} }
+    \title{INFT3970 Major Project Scope Document \protect\\
+    Distributed Monitoring System using Embedded Devices}
+    \author{
+        Jay Rovacsek
+        \texttt{c3146220@uon.edu.au}\\
+        Dean Morton
+        \texttt{c3252227@uon.edu.au}
+    }
+    \date{\today}
+    \hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=blue,
+    citecolor=red,
+    linktoc=section,
+    }
+    \pagenumbering{arabic}
+
+    \begin{document}
+
+    \begin{titlingpage}
+        \maketitle
+    \end{titlingpage}
+    \newpage
+    \tableofcontents
+    \newpage
+    
+    \section{Project Scope Document}
+        \subsection{Introduction}
+        The basic concept of this project will be to create a distributed system in which small 
+        devices are used to monitor, log and warn of select metrics from a multitude of 
+        potential data points.
+        \subsection{Target Audience}
+        The proposed target audience for this project are a wide range of individuals whom may
+        wish to monitor any of the proposed metrics from the wireless devices. The design
+        of this system allows for highly customisable systems that would be easy to imlement and 
+        preconfigured, with a view to write a management software that would allow end users to
+        reconfigure the system as required at any point.
+        \subsection{Metrics}
+        Proposed metrics to be monitored include:
+        \begin{itemize}
+            \item Temperature
+            \item Pressure (atmospheric)
+            \item Humidity
+            \item Sound (Decibels)
+            \item Sound (Ultrasonic or Subsonic levels)
+            \item Wind Speed
+            \item UV 
+            \item Infared (Movement detection)
+            \item Visible Light Levels
+            \item Soil Moisture
+            \item Acceleration
+            \item Orientation/Tilt (x, y, z) of devices
+            \item Rain Sensor
+            \item Vibration
+            \item CO\textsuperscript{2} levels
+        \end{itemize}
+        Further metrics could be measured, based on availability of sensors, however due to 
+        the scope requirements of the course, only a number of the above options will be considered
+        for final presentation when the project is complete.
+
+        \pagebreak
+
+        \subsection{Project Infastructure}
+        Proposed hardware for the project would run on a mixture of ESP8266\cite{ESP8266} or
+        RaspberryPi like boards, made highly available of recent for reasonable prices.
+        \\
+        Back-end hardware is proposed as any system that can host a number of services related
+        to the project. The most essential of these services would include the storage of logging
+        achieved by a database. Given the nature of open-source databases we can confidently assume either
+        cloud hosting or localised hosting of a system is a non-concern.
+
+        \subsubsection{ESP8266 as the proposed device}
+        The ESP8266\cite{ESP8266} would appear to be a highly suitable board fro the project, having
+        a number of off-spin boards created based on the original schematic, a high avilability of the
+        device and low barriers to entry with the board being programmable from and Windows, OSX or UNIX-like
+        host that can interface with USB type B.
+        \par
+        IDE is completely open to interpretation for the device, only requiring the ability for the IDE to flash
+        the device's memory of USB-to-serial-tty or compilabile assets can be directly flashed with utilities such
+        as GNU's dd utility or a number of utilities that are both open source and free such as NodeMCUFlasher\cite{NodeMCU}, or
+        ArduinoIDE\cite{ArduinoIDE} of which, all are cross platform (dd available on windows hosts via Cygwin).
+        \par
+        The ESP8266\cite{ESP8266} is supported heavily with development within the 'maker' world, the extensibility
+        of such devices are only limited by existence of peripheral devices in which to interface with.
+        A large number of tutorials, how-to's and professionally compiled examples exist also\cite{ESP8266-How-To}
+
+        \subsubsection{Raspberry Pi as th proposed device}
+        The Raspberry Pi\cite{RaspberryPi} also would suit as a very capable board which is extremely well supported 
+        by the 'maker' space. Benefits of the Pi over the ESP are an ability to develop in higher level languages
+        such as Python, Bash and Java. The Pi also boasts a processing power in the range of 10-20x more powerful than the 
+        ESP, uses a quad core processor and can support onboard GPU processing.
+        \\
+        The RaspberryPi also opens us a wide range of preprocessing and device side validation given the 
+        offering of utilities and power of the module. 
+        \par
+        However the RaspberryPi is significantly more expensive, between 2-3x larger than the ESP in physical form
+        and would be much harder to setup under a battery style mode in comparison to the ESP8266.
+
+        \subsection{Project Services}
+            \subsubsection{Database Service}
+            The database service would be a simple RESTful API.
+
+            \subsubsection{User Management Service}
+            A user management serice would be required to ensure security of an individuals privacy.
+            This, as above would be best preflashed and not apparent to the end-user, taking the form of
+            some kind of expirable token.
+            \\
+            The service would require some kind of method to associate a user with devices at the point of sale
+            or some kind of method akin to that implemented by the Particle board range \cite{Particle}
+            which associates a serial or UUID/GUID code to identify the device in question.
+            This would be pre-programmed at build time to be stored in the database so no management 
+            other than the entry of such a UUID/GUID would be required by the end-user.
+
+            \subsubsection{Logging Service}
+            The logging service would need to act as middleware between the devices and the database and 
+            potentially require some level of parsing of data and verification of data. Failing either of the
+            parsing or authentication, the Logging service should push errors to the Error Management service.
+            \par
+            Without errors occuring, the logging service should pass data required to the database service which
+            would perform required tasks to store such data.
+
+            \subsubsection{Error Handling Service}
+            The Error handling service would log errors from either data pushed by end devices or the websystem itself,
+            the logs would include stack-trace material, cause for logging, associated user data and timestamps.
+
+            \subsubsection{Web Service}
+            The web service should include all elements required to report a user-account's associated data
+            for selected periods. This should also allow the update of an account, or deletion of an account.
+            Included requiremets of this service will include but are not limited to:
+            \begin{itemize}
+                \item Adding or Removing a device from an account
+                \item Visualisation of data associated with an account
+                \item Login / Logout functionailty
+                \item Downloadable payload of data associated with an account in various formats (XML/json/csv)?
+            \end{itemize}
+            \par
+            The proposed framework to complete the web systems required for this project are one of the following 
+            candidates: Angular MVC application\cite{Angular}, React Native\cite{ReactNative} or ASP.NETCore MVC 
+            application\cite{ASP.NETcore-MVC}.
+            The discussion of frameworks should be followed up in th following week, and a candidate chosen
+            by the team in consensus.
+            
+    \newpage
+
+    \begin{thebibliography}
+        \raggedright
+        \bibitem{Particle}
+            \url{https://www.particle.io/}
+        \bibitem{ESP8266-How-To}
+            \url{http://esp8266.net/}
+        \bibitem{ESP8266}
+            \url{https://randomnerdtutorials.com/home-automation-using-esp8266/}
+        \bibitem{NodeMCU}
+            \url{https://github.com/nodemcu/nodemcu-flasher}
+        \bibitem{ArduinoIDE}
+            \url{https://create.arduino.cc/editor}
+        \bibitem{RaspberryPi}
+            \url{https://www.raspberrypi.org/}
+            \bibitem{ReactNative}
+            \url{https://facebook.github.io/react-native/}
+            \bibitem{Angular}
+            \url{https://www.nativescript.org/nativescript-is-how-you-build-native-mobile-apps-with-angular}
+            \bibitem{ASP.NETcore-MVC}
+            \url{https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/?view=aspnetcore-2.1}
+    \end{thebibliography}
+
+    \end{document}  
